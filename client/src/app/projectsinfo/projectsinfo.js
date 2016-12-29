@@ -15,33 +15,68 @@ angular.module('home', [], ['$routeProvider', function($routeProvider){
 angular.module('home').controller('HomeListCtrl', ['$scope', 'temperatures', function($scope, temperatures){
   var home = this;
   home.temperatures = temperatures;
+  var timeFormat = "MM/DD/YYYY HH:mm:ss";
 
-  home.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  home.series = ['Series A', 'Series B'];
-  home.data = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];
-  home.onClick = function (points, evt) {
-    console.log(points, evt);
-  };
-  home.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-  home.options = {
-    scales: {
-      yAxes: [
-        {
-          id: 'y-axis-1',
-          type: 'linear',
-          display: true,
-          position: 'left'
+  function randomColorFactor() {
+    return Math.round(Math.random() * 255);
+  }
+
+  function randomColor(opacity) {
+    return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+  }
+
+  var config = {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: 'something',
+        backgroundColor: randomColor(0.5),
+        borderColor: randomColor(0.4),
+        pointBorderColor: randomColor(0.7),
+        pointBackgroundColor: randomColor(0.5),
+        pointBorderWidth: 1,
+        data: [{
+          x: moment().format(timeFormat),
+          y: 98.6
         },
-        {
-          id: 'y-axis-2',
-          type: 'linear',
+          {
+            x: moment().add(5,'m').format(timeFormat),
+            y: 100
+          }],
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: "Temperature"
+      },
+      scales: {
+        xAxes: [{
+          type: "time",
           display: true,
-          position: 'right'
-        }
-      ]
+          time: {
+            suggestedMin: moment().subtract(1, 'm').format(timeFormat),
+            suggestedMax: moment().add(1, 'm').format(timeFormat)
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Date'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Degrees (F)'
+          }
+        }]
+      }
     }
   };
+
+  var ctx = document.getElementById("canvas").getContext("2d");
+  window.myLine = new Chart(ctx, config);
+
 }]);
