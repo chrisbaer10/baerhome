@@ -1,6 +1,6 @@
 angular.module('app', [
   'ngRoute',
-  'projectsinfo',
+  'home',
   'dashboard',
   'projects',
   'admin',
@@ -38,7 +38,7 @@ angular.module('app').constant('I18N.MESSAGES', {
 
 angular.module('app').config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
-  $routeProvider.otherwise({redirectTo:'/projectsinfo'});
+  $routeProvider.otherwise({redirectTo:'/home'});
 }]);
 
 angular.module('app').run(['security', function(security) {
@@ -72,7 +72,7 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$route',
     if (security.isAuthenticated()) {
       $location.path('/dashboard');
     } else {
-      $location.path('/projectsinfo');
+      $location.path('/home');
     }
   };
 
