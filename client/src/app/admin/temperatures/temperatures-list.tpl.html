@@ -1,4 +1,3 @@
-<h3>Temperatures</h3>
 <table class="table table-bordered table-condensed table-striped table-hover">
     <thead>
     <tr>
@@ -9,10 +8,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="temp in home.temperatures" ng-click="edit(temp.$id())">
+    <tr ng-repeat="temp in temperatures" ng-click="edit(temp.$id())">
         <td>{{temp.date}}</td>
         <td>{{temp.probe}}</td>
         <td>{{temp.value}}</td>
+        <td ng-show="isAdmin()">
+            <button class="btn btn-danger remove" ng-click="remove(temp, $index, $event)">Remove</button>
+        </td>
     </tr>
     </tbody>
 </table>
+<div class="well">
+    <button class="btn" ng-click="new()">New Temperature</button>
+</div>

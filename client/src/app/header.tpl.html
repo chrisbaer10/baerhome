@@ -1,8 +1,8 @@
 <div class="navbar" ng-controller="HeaderCtrl">
     <div class="navbar-inner">
-        <a class="brand" ng-click="home()">AScrum</a>
+        <a class="brand" ng-click="home()">BaerHome</a>
         <ul class="nav">
-            <li ng-class="{active:isNavbarActive('projectsinfo')}"><a href="/projectsinfo">Current Projects</a></li>
+            <li ng-class="{active:isNavbarActive('projectsinfo')}"><a href="/projectsinfo">Home</a></li>
         </ul>
 
         <ul class="nav" ng-show="isAuthenticated()">
@@ -12,6 +12,7 @@
                 <ul class="dropdown-menu" role="menu" aria-labelledby="adminmenu">
                     <li><a tabindex="-1" href="/admin/projects" ng-click="isAdminOpen=false">Manage Projects</a></li>
                     <li><a tabindex="-1" href="/admin/users" ng-click="isAdminOpen=false">Manage Users</a></li>
+                    <li><a tabindex="-1" href="/admin/temperatures" ng-click="isAdminOpen=false">Manage Temperatures</a></li>
                 </ul>
             </li>
         </ul>
